@@ -1,4 +1,9 @@
 resource "aws_instance" "ngnix-ec2" {
+  connection {
+    user        = "ubuntu"
+    host        = self.public_ip
+    private_key = file(var.private_key_path)
+  }
   ami           = lookup(var.amis, var.region)
   instance_type = var.instance_type
   provisioner "remote-exec" {
@@ -8,9 +13,10 @@ resource "aws_instance" "ngnix-ec2" {
       "sudo service nginx start",
     ]
   }
-  vpc_security_group_ids = [aws_security_group.default.id]
-  subnet_id              = aws_subnet.nginx-subnet.id
-  key_name               = aws_key_pair.auth.id
+  vpc_security_group_ids      = [aws_security_group.default.id]
+  subnet_id                   = aws_subnet.nginx-subnet.id
+  key_name                    = aws_key_pair.auth.id
+  associate_public_ip_address = true
 }
 
 resource "aws_lb_target_group_attachment" "testone_alb_attach_nginx" {
@@ -20,6 +26,11 @@ resource "aws_lb_target_group_attachment" "testone_alb_attach_nginx" {
 }
 
 resource "aws_instance" "apache-ec2" {
+  connection {
+    user        = "ubuntu"
+    host        = self.public_ip
+    private_key = file(var.private_key_path)
+  }
   ami           = lookup(var.amis, var.region)
   instance_type = var.instance_type
   provisioner "remote-exec" {
@@ -29,10 +40,12 @@ resource "aws_instance" "apache-ec2" {
       "sudo service apache2 start",
     ]
   }
-  vpc_security_group_ids = [aws_security_group.default.id]
-  subnet_id              = aws_subnet.apache-subnet.id
-  key_name               = aws_key_pair.auth.id
+  vpc_security_group_ids      = [aws_security_group.default.id]
+  subnet_id                   = aws_subnet.nginx-subnet.id
+  key_name                    = aws_key_pair.auth.id
+  associate_public_ip_address = true
 }
+
 
 resource "aws_lb_target_group_attachment" "testone_alb_attach_apache" {
   target_group_arn = aws_lb_target_group.testone-tg.arn
