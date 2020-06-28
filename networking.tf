@@ -84,7 +84,3 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-resource "aws_key_pair" "auth" {
-  key_name   = var.key_name
-  public_key = file(var.public_key_path)
-}
