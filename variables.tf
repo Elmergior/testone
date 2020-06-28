@@ -30,3 +30,6 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
+variable private_key_path {
+  default = "~/.ssh/testone.pem"
+}
