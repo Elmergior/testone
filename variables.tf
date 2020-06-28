@@ -23,7 +23,7 @@ variable key_name {
 }
 
 variable public_key_path {
-  default = "~/.ssh/id_rsa.pub"
+  default = "~/.ssh/testonekey.pub"
 }
 
 data "aws_availability_zones" "available" {

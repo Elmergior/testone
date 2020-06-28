@@ -4,8 +4,12 @@ resource "aws_instance" "ngnix-ec2" {
     host        = self.public_ip
     private_key = file(var.private_key_path)
   }
-  ami           = lookup(var.amis, var.region)
-  instance_type = var.instance_type
+  ami                         = lookup(var.amis, var.region)
+  instance_type               = var.instance_type
+  vpc_security_group_ids      = [aws_security_group.default.id]
+  subnet_id                   = aws_subnet.nginx-subnet.id
+  key_name                    = aws_key_pair.auth.id
+  associate_public_ip_address = true
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get -y update",
@@ -13,11 +17,8 @@ resource "aws_instance" "ngnix-ec2" {
       "sudo service nginx start",
     ]
   }
-  vpc_security_group_ids      = [aws_security_group.default.id]
-  subnet_id                   = aws_subnet.nginx-subnet.id
-  key_name                    = aws_key_pair.auth.id
-  associate_public_ip_address = true
 }
+
 
 resource "aws_lb_target_group_attachment" "testone_alb_attach_nginx" {
   target_group_arn = aws_lb_target_group.testone-tg.arn
@@ -36,8 +37,7 @@ resource "aws_instance" "apache-ec2" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get -y update",
-      "sudo apt-get -y install apache2",
-      "sudo service apache2 start",
+      "sudo apt-get -y -f install apache2"
     ]
   }
   vpc_security_group_ids      = [aws_security_group.default.id]
