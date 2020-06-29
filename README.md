@@ -1,5 +1,7 @@
-# TestOne
-## TiendaNube
+---
+ title: TiendaNube
+---
+## Test: One
 
 ## Prerequisites
 
@@ -7,7 +9,7 @@ An AWS account and a Userr with permissions to create componentes.
 
 ## HOWTO Use
 
-Onthe repo we have a BASH script to setup Terraform variables. You just run './prepare.sh name' where "name" is the name that you want to assing to the project.
+On the repo we have a BASH script to setup Terraform variables. You just run './prepare.sh name' where "name" is the name that you want to assing to the project. It's create a key, uploads it to AWS and set the variables to match those.
 
 ## TODO
 
