@@ -20,6 +20,7 @@ resource "aws_instance" "ngnix-ec2" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get -y update",
+      "sudo apt-get -y update",
       "sudo apt-get -y install nginx",
       "sudo service nginx start",
     ]
@@ -44,6 +45,7 @@ resource "aws_instance" "apache-ec2" {
   instance_type = var.instance_type
   provisioner "remote-exec" {
     inline = [
+      "sudo apt-get -y update",
       "sudo apt-get -y update",
       "sudo apt-get -y -f install apache2"
     ]
