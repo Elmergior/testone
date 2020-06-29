@@ -6,6 +6,6 @@ instance_type = "t2.micro"
 
 key_name = testone
 
-public_key_path = ~/.ssh/pruebaexitosa.pub
+public_key_path = ~/.ssh/testone.pub
 
-private_key_path = ~/.ssh/pruebaexitosa.pem
+private_key_path = ~/.ssh/testone.pem
