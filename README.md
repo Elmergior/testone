@@ -17,3 +17,4 @@ An AWS account and a Userr with permissions to create componentes.
 - Prepare an S3 to host Terraform State File.
 - Moify preapre.sh script to get local IP and NSG's to allow connectins only from there.
 - Investigate about dual 'apt update' bug.
+- Include Health check on ALB.
